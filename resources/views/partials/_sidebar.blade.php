@@ -78,7 +78,7 @@
               <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Settings:</h6>
                   <a class="collapse-item" href="/settings">Settings</a>
-                  <a class="collapse-item" href="#">Register New User</a>
+                  <a class="collapse-item" href="/register">Register New User</a>
               </div>
           </div>
       </li>

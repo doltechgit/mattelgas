@@ -37,7 +37,10 @@
                             <div class="col-lg-10 mx-auto">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Register New User</h1>
+                                    </div>
+                                    <div class="text-center">
+                                        <small class="  mb-4 text-danger">Please copy and save the password!</small>
                                     </div>
                                     <form method="POST" action="/register" class="user">
                                         @csrf
