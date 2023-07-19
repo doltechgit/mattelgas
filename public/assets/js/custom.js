@@ -153,7 +153,7 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     $(".transaction_form").trigger("reset");
-                    window.location.replace("http://127.0.0.1:8000/" + response.redirect)
+                    window.location.replace("https://mattel.com.ng/" + response.redirect)
                     console.log(response);
                 },
                 complete: function () {
