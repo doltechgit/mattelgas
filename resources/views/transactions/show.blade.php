@@ -12,8 +12,8 @@
 
         }
     </style>
-    <div class="d-flex justify-content-center container mb-4 ">
-        <div class="card col-md-6 mx-2 border-0 p-4">
+    <div class="row m-2 ">
+        <div class="card col-lg-6 col-md-12 mx-2 border-0 p-4">
             <div class="card-header border-0">
                 <h4 class="font-weight-bold">Transaction Details</h4>
             </div>
@@ -43,26 +43,26 @@
                 </tr>
             </table>
             @if($transaction->balance > 0)
-                <div class="my-2">
-                    <p class="m-0 font-weight-bold">Pay Balance</p>
-                    <hr>
-                    <form method="POST" action="/transactions/update/{{$transaction->id}}">
-                        @csrf
-                        <div class="form-group">
-                            <label><small>Balance: </small></label>
-                            <input class="form-control" type="number" name='balance' placeholder="&#8358; 000.000" value="{{$transaction->balance}}" />
-                        </div>
-                        <div class="form-group">
-                            <label><small>Pay: </small></label>
-                            <input class="form-control" type="number" name='paid' placeholder="&#8358; 000.000" />
-                        </div>
+            <div class="my-2">
+                <p class="m-0 font-weight-bold">Pay Balance</p>
+                <hr>
+                <form method="POST" action="/transactions/update/{{$transaction->id}}">
+                    @csrf
+                    <div class="form-group">
+                        <label><small>Balance: </small></label>
+                        <input class="form-control" type="number" name='balance' placeholder="&#8358; 000.000" value="{{$transaction->balance}}" />
+                    </div>
+                    <div class="form-group">
+                        <label><small>Pay: </small></label>
+                        <input class="form-control" type="number" name='paid' placeholder="&#8358; 000.000" />
+                    </div>
 
-                        <button type="submit" class="btn btn-primary btn-sm">Balance</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Balance</button>
+                </form>
+            </div>
             @endif
         </div>
-        <div class="card col-md-6 mx-2 p-5 print_area border-0" id="print_area">
+        <div class="card col-lg-5 col-md-12 mx-2 p-5 print_area border-0" id="print_area">
             <div class="card-header text-center border-0">
                 <h3 class="text-uppercase font-weight-bold my0" style="line-height: 10px;">Mattel Gas</h3>
                 <small class="fs-3">Bigboy Junction University Road Tanke Ilorin, Kwara State</small>

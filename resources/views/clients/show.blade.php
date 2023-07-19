@@ -1,13 +1,13 @@
 <x-layout>
     <div class="m-2">
-        <div class="d-flex align-items-start justify-content-center p-0 my-4">
+        <div class="row p-0 my-4">
             <div class="col-lg-6 col-md-12 mx-2 ">
                 <div class="bg-white card border-0 p-4">
                     <div class="row">
-                        <span class=" col-md-4"><small>Name: </small>
+                        <span class=" col-lg-4 col-md-12"><small>Name: </small>
                             <h5 class="font-weight-bold">{{$client->name}}</h5>
                         </span>
-                        <span class=" col-md-4"><small>Phone: </small>
+                        <span class=" col-lg-4 col-md-12"><small>Phone: </small>
                             <h5 class="font-weight-bold">{{$client->phone}}</h5>
                         </span>
                         <span class=" col-md-4"><small>Category: </small>
@@ -115,7 +115,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12 card">
+            <div class="col-lg-5 col-md-12 card">
                 <div class="card-header">
                     <h5 class="font-weight-bold">New Transaction</h5>
                 </div>

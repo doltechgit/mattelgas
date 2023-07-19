@@ -4,7 +4,7 @@
             <h6 class="m-0 font-weight-bold ">Transactions</h6>
             <div>
                 <a href="/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "><i class="fas fa-plus fa-sm text-white-50"></i> Add New Transaction</a>
-                <div class="dropdown d-none d-sm-inline-block">
+                <div class="dropdown  d-sm-inline-block">
                     <button class=" btn btn-sm btn-success shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Records
                     </button>
@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="card-body">
-            
+            <div class="table-responsive">
                 <table class="table" id="transTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -67,7 +67,8 @@
 
                     </tbody>
                 </table>
-            
+            </div>
+
         </div>
     </div>
 </x-layout>

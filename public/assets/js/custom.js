@@ -87,7 +87,7 @@ $(document).ready(function () {
     $(".navbar-search").on("submit", function (e) {
         // alert('heere')
         e.preventDefault();
-        let query = $("#search_query").val();
+        let query = $(".search_query").val();
         if (!query) {
             $("#s_result").html(
                 "<td class='text-danger'>Search Query is Empty</td>"

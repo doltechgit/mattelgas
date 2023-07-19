@@ -1785,6 +1785,9 @@ pre code {
 }
 
 @media (max-width: 767.98px) {
+   .navbar-nav{
+    align-items: center;
+  }
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -4143,6 +4146,7 @@ input[type="button"].btn-block {
 .navbar-nav {
   display: flex;
   flex-direction: column;
+  
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -4245,12 +4249,14 @@ input[type="button"].btn-block {
 }
 
 @media (min-width: 768px) {
+ 
   .navbar-expand-md {
     flex-flow: row nowrap;
     justify-content: flex-start;
   }
   .navbar-expand-md .navbar-nav {
     flex-direction: row;
+    
   }
   .navbar-expand-md .navbar-nav .dropdown-menu {
     position: absolute;

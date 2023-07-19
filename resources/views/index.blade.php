@@ -1,8 +1,9 @@
 <x-layout>
-    <div class="row my-4">
-        <div class="col-lg-8 col-md-12">
+    <div class="m-3">
+    <div class="row mb-4">
+        <div class=" col-lg-8 col-md-12 ">
             <!-- Content Row -->
-            <div class="bg-white border col-md-12 p-3 mx-auto ">
+            <div class="bg-white p-3">
 
                 <div class="w-100">
                     <div class="card-header border-0">
@@ -17,47 +18,47 @@
                             <input type="hidden" name="product_id" id="product_id">
                             <input type="hidden" class="unit_price" name="unit_price" id="unit_price" value="0">
                             <input type="hidden" class="disc_est" name="disc_est" id="disc_est">
-                            <table class="col-md-12   p-0">
-                                <tr>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                            <div class="col-md-12   p-0">
+                                <div class="row">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <input class="form-control name" type="text" name="name" id="name" placeholder="Customer's Name" value="{{old('name')}}" required />
                                             @error('name')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <input class="form-control phone" type="text" name="phone" id="phone" placeholder="Customer's Phone" value="{{old('phone')}}" required />
                                             @error('name')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                </tr>
+                                    </span>
+                                </div>
 
-                                <tr>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                <div class="row">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <input class="form-control email" type="email" name="email" id="email" placeholder="Customer's Email" value="{{old('email')}}" />
                                             @error('email')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <input class="form-control address" type="text" name="address" id="address" placeholder="Customer's Address" value="{{old('address')}}" />
                                             @error('address')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                </tr>
+                                    </span>
+                                </div>
 
-                                <tr>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                <div class="row">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <select class="form-control category" id="category" name="category" value="{{old('method')}}" required>
                                                 <option value="Select KG">--Customer Category--</option>
@@ -68,8 +69,8 @@
                                                 @endforelse
                                             </select>
                                         </div>
-                                    </td>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <select class="form-control method" id="method" name="method" value="{{old('method')}}" required>
                                                 <option value="Select KG">--Payment Method--</option>
@@ -78,35 +79,36 @@
                                                 <option value="Transfer">Transfer</option>
                                             </select>
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
+                                    </span>
+                                </div>
+                                <div class="">
+                                    
+                                    <!-- <span>
                                         <small>Note</small>
                                         <p>Enter Amount if Customer is buying by Price</p>
-                                    </td>
+                                    </span> -->
 
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
-                                            <label><small>Amount:</small></label>
+                                            <label><small>Amount: (Enter Amount if Customer is buying by Price)</small></label>
                                             <input class="form-control amount" type="number" name="amount" id="amount" placeholder="#000.00" value="{{old('amount')}}" />
                                             @error('amount')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <label><small>Quantity</small></label>
-                                            <input class="form-control buy_quantity" type="number" name="buy_quantity" id="buy_quantity" placeholder="0 kg" value="{{old('buy_quantity')}}"  />
+                                            <input class="form-control buy_quantity" type="number" name="buy_quantity" id="buy_quantity" placeholder="0 kg" value="{{old('buy_quantity')}}" />
                                             @error('quantity')
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <label><small>Discount:</small></label>
                                             <input class="form-control discount" type="number" name="discount" id="discount" placeholder="Discount" value="0" />
@@ -114,11 +116,11 @@
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                </tr>
+                                    </span>
+                                </div>
 
-                                <tr>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                <div class="row">
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <label><small>Paid:</small></label>
                                             <input class="form-control paid" type="number" name="paid" id="paid" placeholder="&#8358; 000.00" value="{{old('paid')}}" required />
@@ -126,8 +128,8 @@
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                    <td class="col-lg-6 col-md-12 px-2">
+                                    </span>
+                                    <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
                                             <label><small>To Balance:</small></label>
                                             <input class="form-control balance" type="number" name="balance" id="balance" placeholder="&#8358; 000.00" value="{{old('balance')}}" />
@@ -135,9 +137,9 @@
                                             <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <input class="form-control buy_price" type="hidden" name="buy_price" id="buy_price" placeholder="Total Price" value="{{old('price')}}" />
                                 @error('price')
@@ -278,6 +280,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Client Transaction Modal-->

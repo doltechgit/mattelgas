@@ -39,7 +39,7 @@
                 @include('partials._topbar')
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="">
                     <div class="bg-white d-none search-result">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6>Search Results</h6>
