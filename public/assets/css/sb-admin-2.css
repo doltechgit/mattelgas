@@ -1773,6 +1773,9 @@ pre code {
 }
 
 @media (max-width: 575.98px) {
+  .navbar-nav{
+    align-items: center;
+  }
   .table-responsive-sm {
     display: block;
     width: 100%;
@@ -4202,6 +4205,9 @@ input[type="button"].btn-block {
 }
 
 @media (max-width: 575.98px) {
+  .navbar-nav{
+    align-items: center;
+  }
   .navbar-expand-sm > .container,
   .navbar-expand-sm > .container-fluid, .navbar-expand-sm > .container-sm, .navbar-expand-sm > .container-md, .navbar-expand-sm > .container-lg, .navbar-expand-sm > .container-xl {
     padding-right: 0;
@@ -4241,6 +4247,9 @@ input[type="button"].btn-block {
 }
 
 @media (max-width: 767.98px) {
+  .navbar-nav{
+    align-items: center;
+  }
   .navbar-expand-md > .container,
   .navbar-expand-md > .container-fluid, .navbar-expand-md > .container-sm, .navbar-expand-md > .container-md, .navbar-expand-md > .container-lg, .navbar-expand-md > .container-xl {
     padding-right: 0;
