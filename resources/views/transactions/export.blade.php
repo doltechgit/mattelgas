@@ -35,7 +35,11 @@
             <td>{{ $transaction->client->name }}</td>
             <td>{{ $transaction->client->phone }}</td>
             <td>{{ $transaction->client->category->name }}</td>
+            @if($transaction->user == null)
+            <td>User does not exist</td>
+            @else
             <td>{{ $transaction->user->name }}</td>
+            @endif
         </tr>
         @endforeach
     </tbody>
