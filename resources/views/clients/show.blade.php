@@ -135,15 +135,7 @@
                                     </td>
                                     <td class="col-md-8">
 
-                                        <select class="form-control category" id="cl_category" name="category" value="{{old('method')}}" placeholder="Quantity">
-                                            <option value="Select KG">--Customer Category--</option>
-                                            @forelse ($categories as $category )
-                                            <option value="{{$category->price}}">{{$category->name}} - # {{$category->price}}</option>
-                                            @empty
-                                            <option value="No Category">No Category</option>
-                                            @endforelse
-                                        </select>
-
+                                        <input class="form-control category"  id="cl_category" name="category" value="{{$client->category->price}}" disabled>
                                     </td>
                                 </tr>
                             </div>

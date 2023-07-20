@@ -59,7 +59,12 @@ $(document).ready(function () {
                 disc_est.val();
             price.val(total_price - discount_price);
             price_display.text(price.val());
-        } else {
+        } else if (parseFloat(category.val()) > 0) {
+            price.val(
+                parseFloat(buy_quantity.val()) * parseFloat(category.val())
+            );
+            price_display.text(new Intl.NumberFormat().format(price.val()));
+        } else{
             price.val(
                 parseFloat(buy_quantity.val()) * parseFloat(unit_price.val())
             );
@@ -73,10 +78,10 @@ $(document).ready(function () {
 
     amount.change(function () {
         buy_quantity.val(
-            (parseFloat(amount.val()) / parseFloat(category.val())).toFixed(1)
+            parseFloat(amount.val()) / parseFloat(category.val())
         );
         price.val(
-            parseFloat(buy_quantity.val()) * parseFloat(unit_price.val())
+            parseFloat(buy_quantity.val()) * parseFloat(category.val())
         );
         price_display.text(new Intl.NumberFormat().format(price.val()));
     });
