@@ -147,6 +147,7 @@
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary submit_transaction">Save Transaction</button>
+                                    <button type="reset" class="btn btn-secondary"><i class="fa fa-redo"></i></button>
                                 </div>
                             </form>
                         </div>
