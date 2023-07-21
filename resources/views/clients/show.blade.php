@@ -135,7 +135,7 @@
                                     </td>
                                     <td class="col-md-8">
 
-                                        <input class="form-control category"  id="cl_category" name="category" value="{{$client->category->price}}" disabled>
+                                        <input class="form-control category" id="cl_category" name="category" value="{{$client->category->price}}" disabled>
                                     </td>
                                 </tr>
                             </div>
@@ -162,7 +162,7 @@
                                     <td class="">
 
 
-                                        <input class="form-control buy_quantity" type="number" name="buy_quantity" id="cl_quantity" placeholder="0 kg" value="{{old('buy_quantity')}}" />
+                                        <input class="form-control buy_quantity" type="number" step="any" name="buy_quantity" id="cl_quantity" placeholder="0 kg" value="{{old('buy_quantity')}}" />
                                         @error('quantity')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -176,7 +176,7 @@
                                         <label class="mr-2" for="amount">Amount: </label>
                                     </td>
                                     <td class="">
-                                        <input class="form-control amount" type="number" name="amount" id="amount" placeholder="#000.00" value="{{old('amount')}}" />
+                                        <input class="form-control amount" type="number" step="any" name="amount" id="amount" placeholder="#000.00" value="{{old('amount')}}" />
                                         @error('amount')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -191,7 +191,7 @@
                                     </td>
                                     <td class="">
 
-                                        <input class="form-control discount " type="number" name="discount" id="cl_discount" placeholder="Discount" value="0" />
+                                        <input class="form-control discount " type="number" step="any" name="discount" id="cl_discount" placeholder="Discount" value="0" />
                                         @error('discount')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -205,7 +205,7 @@
                                     </td>
                                     <td class="">
 
-                                        <input class="form-control paid " type="number" name="paid" id="paid" placeholder="&#8358; 000.00" value="{{old('paid')}}" />
+                                        <input class="form-control paid " type="number" step="any" name="paid" id="paid" placeholder="&#8358; 000.00" value="{{old('paid')}}" />
                                         @error('paid')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
@@ -219,7 +219,7 @@
                                     </td>
                                     <td class="">
 
-                                        <input class="form-control balance " type="number" name="balance" id="balance" placeholder="&#8358; 000.00" value="{{old('balance')}}" />
+                                        <input class="form-control balance " type="number" step="any" name="balance" id="balance" placeholder="&#8358; 000.00" value="{{old('balance')}}" />
                                         @error('balance')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror
