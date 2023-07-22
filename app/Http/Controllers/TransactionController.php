@@ -192,7 +192,7 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
         $pdf = Pdf::loadView('transactions.receipt', [
             'transaction' => $transaction
-        ])->setPaper('a4', 'portrait');
+        ])->setPaper('mattel', 'portrait');
         return $pdf->stream('mattel_gas_' . $transaction->transaction_id . '.pdf');
     }
     public function download_pdf($id)
