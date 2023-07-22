@@ -89,7 +89,7 @@
 
             </table>
             <div class="text-center">
-                <h2 class="font-weight-bold">#{{number_format($transaction->price)}}</h2>
+                <h2 class="font-weight-bold"> &#8358; {{number_format($transaction->price)}}</h2>
             </div>
             <a href="print_pdf/{{$transaction->id}}" class="btn btn-success  m-2"><i class="fa fa-print mx-2"></i>Print Invoice</a>
             <a href="download_pdf/{{$transaction->id}}" class="btn btn-danger m-2"><i class="fa fa-download mx-2"></i> Generate PDF</a>
