@@ -37,21 +37,20 @@
                         @foreach ($transactions->keyBy('created_at') as $transaction)
 
                         @php
-                        $date = date('D d-M-Y', $transaction->created_at->timestamp);
+                        $date = date('d-m-Y', $transaction->created_at->timestamp);
                         @endphp
                         <tr>
                             <td>
                                 <a href="transactions/{{$transaction->id}}">
+                                    <small>{{$transaction->created_at}}</small>
                                     <h6>{{$transaction->transaction_id}}</h6>
-                                    <small>{{$date}}</small>
                                 </a>
                             </td>
 
                             <td>
-                                <h6># {{number_format($transaction->price)}}</h6>
-                                <small>Quantity: {{$transaction->quantity}} KG</small>
+                                <h6>&#8358; {{number_format($transaction->price)}} | {{$transaction->quantity}} KG</h6>
                                 <small>Discount: {{$transaction->discount}} %</small>
-
+                                <small>Payment Methode: {{$transaction->pay_method}}</small>
                             </td>
                             <td>
                                 <a href="clients/{{$transaction->client->id}}">
