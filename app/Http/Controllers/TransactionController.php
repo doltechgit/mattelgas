@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\TransactionExport;
+use App\Exports\TransactionSortReport;
 use App\Models\Category;
 use App\Models\Coupon;
 use App\Notifications\TransactionNotification;
@@ -25,9 +26,25 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $cash = Transaction::where('pay_method', 'cash')->sum('price');
+        $pos = Transaction::where('pay_method', 'pos')->sum('price');
+        $transfer = Transaction::where('pay_method', 'transfer')->sum('price');
+        $today = date('Y-m-d', time());
+        $pos_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('pay_method', 'pos')->sum('price');
+        $cash_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('pay_method', 'cash')->sum('price');
+        $transfer_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('pay_method', 'transfer')->sum('price');
         $transactions = Transaction::all();
         return view('transactions.index', [
-            'transactions' => $transactions
+            'transactions' => $transactions,
+            'cash' => $cash,
+            'pos' => $pos,
+            'transfer' => $transfer,
+            'cash_today' => $cash_today,
+            'pos_today' => $pos_today,
+            'transfer_today' => $transfer_today
         ]);
     }
 
@@ -208,6 +225,20 @@ class TransactionController extends Controller
     public function export()
     {
         return Excel::download(new TransactionExport, 'transactions.csv');
+    }
+
+    public function generate(Request $request)
+    {
+    
+        return (new TransactionSortReport($request->from, $request->to))->download('mt-report.csv');
+        // dd($transaction);
+    }
+
+    public function generate_method(Request $request)
+    {
+
+        return (new TransactionSortReport($request->from, $request->to, $request->method))->download('mt-'. $request->method.'.csv');
+        // dd($transaction);
     }
 
     /**

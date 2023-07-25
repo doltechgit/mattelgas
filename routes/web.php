@@ -78,6 +78,8 @@ Route::group(['middleware' => ['role:admin']], function(){
 Route::group(['middleware' => ['role:manager|admin']], function () {
     // Transactions
     Route::get('/transactions/delete/{id}', [TransactionController::class, 'destroy']);
+    Route::post('/transactions/generate/', [TransactionController::class, 'generate']);
+    Route::post('/transactions/generate_method/', [TransactionController::class, 'generate_method']);    
 
     // Products
     Route::get('/products', [ProductController::class, 'index']);
