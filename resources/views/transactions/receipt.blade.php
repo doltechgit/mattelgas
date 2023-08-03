@@ -61,6 +61,14 @@
             <td>{{$transaction->discount}} %</td>
         </tr>
         <tr>
+            <td>Paid: </td>
+            <td># {{$transaction->paid}}</td>
+        </tr>
+        <tr>
+            <td>Balance: </td>
+            <td># {{$transaction->balance}}</td>
+        </tr>
+        <tr>
             <td>Transaction by: </td>
             <td>{{$transaction->user->name}}</td>
         </tr>

@@ -31,31 +31,14 @@
                                         <span class="col-lg-6 col-md-12 px-2">
                                             <div class="form-group">
                                                 <input class="form-control phone" type="text" name="phone" id="phone" placeholder="Customer's Phone" value="{{old('phone')}}" required />
-                                                @error('name')
+                                                @error('phone')
                                                 <small class="text-danger">{{$message}}</small>
                                                 @enderror
                                             </div>
                                         </span>
                                     </div>
 
-                                    <div class="row">
-                                        <span class="col-lg-6 col-md-12 px-2">
-                                            <div class="form-group">
-                                                <input class="form-control email" type="email" name="email" id="email" placeholder="Customer's Email" value="{{old('email')}}" />
-                                                @error('email')
-                                                <small class="text-danger">{{$message}}</small>
-                                                @enderror
-                                            </div>
-                                        </span>
-                                        <span class="col-lg-6 col-md-12 px-2">
-                                            <div class="form-group">
-                                                <input class="form-control address" type="text" name="address" id="address" placeholder="Customer's Address" value="{{old('address')}}" />
-                                                @error('address')
-                                                <small class="text-danger">{{$message}}</small>
-                                                @enderror
-                                            </div>
-                                        </span>
-                                    </div>
+                                    
 
                                     <div class="row">
                                         <span class="col-lg-6 col-md-12 px-2">

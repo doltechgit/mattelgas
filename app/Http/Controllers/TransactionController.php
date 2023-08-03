@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\TransactionExport;
 use App\Exports\TransactionSortReport;
+use App\Exports\MethodReport;
 use App\Models\Category;
 use App\Models\Coupon;
 use App\Notifications\TransactionNotification;
@@ -237,7 +238,7 @@ class TransactionController extends Controller
     public function generate_method(Request $request)
     {
 
-        return (new TransactionSortReport($request->from, $request->to, $request->method))->download('mt-'. $request->method.'.csv');
+        return (new MethodReport($request->from, $request->to, $request->method))->download('mt-'. $request->method.'.csv');
         // dd($transaction);
     }
 
