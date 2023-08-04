@@ -142,7 +142,7 @@ $(document).ready(function () {
                 $("#error_ms").text("Empty Fields");
             }
         })    
-        alert(
+        confirm(
             "Please Check Details again and be sure before confirming transaction."
         );
             $.ajax({

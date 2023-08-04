@@ -219,7 +219,7 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
         $pdf = Pdf::loadView('transactions.receipt', [
             'transaction' => $transaction
-        ]);
+        ])->setPaper('mattel', 'portrait');
         return $pdf->download('mattel_gas_' . $transaction->transaction_id . '.pdf');
     }
 
