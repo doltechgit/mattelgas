@@ -69,21 +69,45 @@
                 <h5>Transaction Receipt</h5>
             </div>
             <table class="table">
-                <tr class="col-md-6">
-                    <td>ID: {{$transaction->transaction_id}}</td>
-                    <td>Date: {{$transaction->created_at}}</td>
-                </tr>
-                <tr class="col-md-6">
-                    <td>Name: {{$transaction->client->name}}</td>
-                    <td>Phone: {{$transaction->client->phone}} </td>
-                </tr>
-                <tr class="col-md-6">
-                    <td>Quantity: {{$transaction->quantity}} KG </td>
-                    <td>Payment Method: {{$transaction->pay_method}}</td>
+                <tr>
+                    <td>ID: </td>
+                    <td>{{$transaction->transaction_id}}</td>
                 </tr>
                 <tr>
-                    <td>Discount: {{$transaction->discount}} %</td>
-                    <td>Transaction by: {{$transaction->user->name}}</td>
+                    <td>Date: </td>
+                    <td>{{$transaction->created_at}}</td>
+                </tr>
+                <tr>
+                    <td>Name: </td>
+                    <td>{{$transaction->client->name}}</td>
+                </tr>
+                <tr>
+                    <td>Phone: </td>
+                    <td>{{$transaction->client->phone}} </td>
+                </tr>
+                <tr>
+                    <td>Quantity: </td>
+                    <td>{{$transaction->quantity}} KG </td>
+                </tr>
+                <tr>
+                    <td>Payment Method: {{$transaction->pay_method}}</td>
+                    <td>{{$transaction->pay_method}}</td>
+                </tr>
+                <tr>
+                    <td>Paid: </td>
+                    <td>{{$transaction->paid}}</td>
+                </tr>
+                <tr>
+                    <td>To Bal: </td>
+                    <td>{{$transaction->balance}}</td>
+                </tr>
+                <tr>
+                    <td>Discount: </td>
+                    <td>{{$transaction->discount}} %</td>
+                </tr>
+                <tr>
+                    <td>Transaction by: </td>
+                    <td>{{$transaction->user->name}}</td>
                 </tr>
                 <p></p>
 
@@ -92,6 +116,7 @@
                 <h2 class="font-weight-bold"> &#8358; {{number_format($transaction->price)}}</h2>
             </div>
             <!-- <a href="print_pdf/{{$transaction->id}}" class="btn btn-success  m-2"><i class="fa fa-print mx-2"></i>Print Invoice</a> -->
+            <button id="print_receipt" class="btn btn-success  m-2"><i class="fa fa-print mx-2"></i>Print Invoice</button>
             <a href="download_pdf/{{$transaction->id}}" class="btn btn-success m-2"><i class="fa fa-download mx-2"></i> Print Invoice</a>
 
         </div>
@@ -100,14 +125,15 @@
 
 
     <script>
-        function printArea(areaID) {
-            let content = document.getElementById(areaID)
-            let win_print = window.open('', '', 'width=900', 'height=650')
-            win_print.document.write(content.innerHTML)
-            win_print.document.close()
-            win_print.focus()
-            win_print.print()
-        }
+        $(document).ready(function() {
+            $('#print_receipt').on('click', function() {
+                let content = $("#print_area")
+                let win_print = window.open('', '', 'width=302', 'height=450')
+                win_print.document.write(content.innerHTML)
+                win_print.document.close()
+                win_print.print()
+            })
+        })
     </script>
 
 </x-layout>
