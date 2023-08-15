@@ -63,8 +63,8 @@
             @endif
         </div>
         <div class="card col-lg-5 col-md-12 mx-2 p-5 print_area border-0" id="print_area">
-            <div class="card-header text-center border-0">
-                <h3 class="text-uppercase font-weight-bold my0" style="line-height: 10px;">Mattel Gas</h3>
+            <div class="card-header text-center border-0" style="text-align: center">
+                <h2 class="text-uppercase h3 font-weight-bold my0" style="line-height: 10px;">Mattel Gas</h2>
                 <small class="fs-3">Bigboy Junction University Road Tanke Ilorin, Kwara State</small>
                 <h5>Transaction Receipt</h5>
             </div>
@@ -95,11 +95,11 @@
                 </tr>
                 <tr>
                     <td>Paid: </td>
-                    <td>{{$transaction->paid}}</td>
+                    <td>&#8358; {{$transaction->paid}}</td>
                 </tr>
                 <tr>
                     <td>To Bal: </td>
-                    <td>{{$transaction->balance}}</td>
+                    <td>&#8358; {{$transaction->balance}}</td>
                 </tr>
                 <tr>
                     <td>Discount: </td>
@@ -112,12 +112,12 @@
                 <p></p>
 
             </table>
-            <div class="text-center">
+            <div class="text-center" style="text-align: center">
                 <h2 class="font-weight-bold"> &#8358; {{number_format($transaction->price)}}</h2>
             </div>
             <!-- <a href="print_pdf/{{$transaction->id}}" class="btn btn-success  m-2"><i class="fa fa-print mx-2"></i>Print Invoice</a> -->
             <button id="print_receipt" class="btn btn-success  m-2"><i class="fa fa-print mx-2"></i>Print Invoice</button>
-            <a href="download_pdf/{{$transaction->id}}" class="btn btn-success m-2"><i class="fa fa-download mx-2"></i> Print Invoice</a>
+            <a href="download_pdf/{{$transaction->id}}" class="btn btn-warning m-2"><i class="fa fa-download mx-2"></i> Generate PDF</a>
 
         </div>
 
@@ -129,7 +129,7 @@
             $('#print_receipt').on('click', function() {
                 let content = $("#print_area")
                 let win_print = window.open('', '', 'width=302', 'height=450')
-                win_print.document.write(content.innerHTML)
+                win_print.document.write(content.html())
                 win_print.document.close()
                 win_print.print()
             })
