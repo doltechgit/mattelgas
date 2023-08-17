@@ -10,10 +10,13 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\TransactionExport;
+use App\Exports\TransactionUpdateExport;
 use App\Exports\TransactionSortReport;
 use App\Exports\MethodReport;
+use App\Imports\TransactionImport;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Stock;
 use App\Notifications\TransactionNotification;
 use Illuminate\Support\Facades\Notification;
 use Maatwebsite\Excel\Facades\Excel;
@@ -57,6 +60,34 @@ class TransactionController extends Controller
     public function create()
     {
         //
+    }
+
+    public function import(Request $request)
+    {
+        // dd($request->import);
+        Excel::import(new TransactionImport, $request->import);
+        
+        return back()->with('message', 'Import Successful');
+        
+       
+        
+    }
+
+    public function sync()
+    {
+        // dd($request->import);
+        $product = Product::find(1);
+        $transction_sum = Transaction::all()->sum('quantity');
+        $stock = Stock::pluck('new_quantity')->first(); 
+        $added = Stock::pluck('add_quantity')->skip(1)->sum();
+
+
+        
+        $current = $stock - $transction_sum;
+        $product->quantity = $current + $added;
+        $product->save();
+
+        return back()->with('message', 'Stocks Updated');
     }
 
     /**
@@ -226,6 +257,11 @@ class TransactionController extends Controller
     public function export()
     {
         return Excel::download(new TransactionExport, 'transactions.csv');
+    }
+
+    public function report()
+    {
+        return Excel::download(new TransactionUpdateExport, 'trans_update.csv');
     }
 
     public function generate(Request $request)

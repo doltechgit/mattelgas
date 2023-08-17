@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StockExport;
+use App\Exports\StockReport;
+use App\Imports\StockImport;
 use App\Models\Product;
 use App\Models\Stock;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,6 +25,13 @@ class StockController extends Controller
         ]);
     }
 
+    public function import(Request $request)
+    {
+        // dd($request->import);
+        Excel::import(new StockImport, $request->import);
+        
+        return back()->with('message', 'Import Successful');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -50,6 +59,7 @@ class StockController extends Controller
             'quantity' => 'numeric'
         ]);
         $stock = Stock::create([
+            'stock_stamp' => $request->stock_stamp,
             'product_id' => $product->id,
             'prev_quantity' => $request->quantity,
             'add_quantity' => $request->add_quantity,
@@ -77,6 +87,11 @@ class StockController extends Controller
     public function export()
     {
         return Excel::download(new StockExport, 'mtg_stocks.csv');
+    }
+
+    public function report()
+    {
+        return Excel::download(new StockReport, 'mtg_stocks_report.csv');
     }
 
     /**

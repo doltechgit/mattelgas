@@ -39,22 +39,28 @@ Route::middleware('auth')->group(function(){
     Route::get('/notifications', [NotificationController::class, 'index']);
     // Transactions
     Route::get('/transactions', [TransactionController::class, 'index']);
+    Route::get('/transactions/report', [TransactionController::class, 'report']);
+    Route::get('/transactions/sync', [TransactionController::class, 'sync']);
     Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+    Route::post('/transactions/import', [TransactionController::class, 'import']);
     Route::post('/transactions/store', [TransactionController::class, 'store']);
     Route::post('/transactions/client/{id}', [TransactionController::class, 'client_transaction']);
     Route::post('/transactions/update/{id}', [TransactionController::class, 'update']);
     Route::get('/print_pdf/{id}', [TransactionController::class, 'receipt_pdf']);
     Route::get('/download_pdf/{id}', [TransactionController::class, 'download_pdf']);
     Route::get('/export', [TransactionController::class, 'export']);
+    
 
     // Clients
     Route::get('/clients', [ClientController::class, 'index']);
+    Route::post('/clients/import', [ClientController::class, 'import']);
     Route::get('/clients/{id}', [ClientController::class, 'show']);
     Route::post('/clients/store', [ClientController::class, 'store']);
     Route::post('/clients/update/{id}', [ClientController::class, 'update']);
     Route::get('/get_client/{id}', [ClientController::class, 'get_client']);
     Route::get('/search_client/{id}', [ClientController::class, 'search_client']);
-    Route::get('/clients_export', [ClientController::class, 'export']);
+    Route::get('/clients_export', [ClientController::class, 'report']);
+    Route::get('/clients_upload', [ClientController::class, 'export']);
     
 
     
@@ -90,7 +96,9 @@ Route::group(['middleware' => ['role:manager|admin']], function () {
 
     // Stocks
     Route::get('/stocks', [StockController::class, 'index']);
+    Route::post('/stocks/import', [StockController::class, 'import']);
     Route::get('/stocks/create', [StockController::class, 'create']);
     Route::post('/stocks/store', [StockController::class, 'store']);
-    Route::get('/stocks_export', [StockController::class, 'export']);
+    Route::get('/stocks_export', [StockController::class, 'report']);
+    Route::get('/stocks_upload', [StockController::class, 'export']);
 });

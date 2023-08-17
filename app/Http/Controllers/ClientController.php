@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ClientExport;
+use App\Exports\ClientReport;
+use App\Imports\ClientImport;
 use App\Models\Client;
 use App\Models\Transaction;
 use App\Models\Category;
@@ -26,6 +28,17 @@ class ClientController extends Controller
             'clients' => $clients,
             'categories' => $categories
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        // dd($request->import);
+        Excel::import(new ClientImport, $request->import);
+        
+        return back()->with('message', 'Import Successful');
+        
+       
+        
     }
 
     /**
@@ -109,6 +122,10 @@ class ClientController extends Controller
     public function export()
     {
         return Excel::download(new ClientExport, 'mtg_clients.csv');
+    }
+    public function report()
+    {
+        return Excel::download(new ClientReport, 'mtg_clients_report.csv');
     }
 
     /**

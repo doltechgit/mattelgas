@@ -1,4 +1,21 @@
 <x-layout>
+    <div class="container-fluid">
+    <div class="card col-md-6 my-4">
+        <div class="card-header">
+            <h6 class="font-weight-bold">Import Clients</h6>
+        </div>
+        <div class="my-2">
+            <form method="POST" action="clients/import" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <input type="file" name="import" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card  mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold ">Clients</h6>
@@ -9,8 +26,8 @@
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Clients Record
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="clients_export">CSV</a>
-                        <a class="dropdown-item" href="#">PDF</a>
+                        <a class="dropdown-item" href="clients_export">CSV Report</a>
+                        <a class="dropdown-item" href="clients_upload">For Upload</a>
 
                     </div>
                 </div>
@@ -56,4 +73,5 @@
             </div>
         </div>
     </div>
+</div>
 </x-layout>

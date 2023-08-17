@@ -9,7 +9,7 @@
                 <form method="POST" action="/stocks/store" class="user">
                     @csrf
 
-                    <input type="hidden" name="transaction_id" value="STK_{{rand(0, 1000).time()}}">
+                    <input type="hidden" name="stock_stamp" value="STK_{{rand(0, 1000).time()}}">
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
                         <select class="form-control" id="stk_product" name="product" value="{{old('product')}}" placeholder="Quantity">

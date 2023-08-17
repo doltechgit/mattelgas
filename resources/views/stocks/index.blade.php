@@ -1,4 +1,21 @@
 <x-layout>
+    <div class="container-fluid">
+    <div class="card col-md-6 my-4">
+        <div class="card-header">
+            <h6 class="font-weight-bold">Import Stocks</h6>
+        </div>
+        <div class="my-2">
+            <form method="POST" action="stocks/import" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <input type="file" name="import" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="card  mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold">All Stocks</h6>
@@ -9,8 +26,8 @@
                         <i class="fas fa-download fa-sm text-white-50"></i> Download Stock Inventory
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="stocks_export">CSV</a>
-                        <a class="dropdown-item" href="#">PDF</a>
+                        <a class="dropdown-item" href="stocks_export">CSV Report</a>
+                        <a class="dropdown-item" href="stocks_upload">For Upload</a>
 
                     </div>
                 </div>
@@ -50,4 +67,5 @@
             </div>
         </div>
     </div>
+</div>
 </x-layout>

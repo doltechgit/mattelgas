@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->string('stock_stamp')->unique();
             $table->foreignId('product_id')->nullable();
             $table->float('prev_quantity');
             $table->float('add_quantity');

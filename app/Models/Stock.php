@@ -11,6 +11,7 @@ class Stock extends Model
 
     protected $fillable = [
         'store_id',
+        'stock_stamp',
         'product_id',
         'prev_quantity',
         'add_quantity',
@@ -23,4 +24,11 @@ class Stock extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    
 }

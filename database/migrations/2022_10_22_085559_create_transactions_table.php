@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id');
+            $table->string('transaction_id')->unique();
             $table->foreignId('product_id')->nullable();
             $table->foreignId('store_id')->nullable();
             $table->foreignId('client_id');

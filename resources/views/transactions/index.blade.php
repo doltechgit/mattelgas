@@ -40,6 +40,26 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card-header">
+                        <h6 class="font-weight-bold">Import Transactions</h6>
+                    </div>
+                    <div class="my-2">
+                        <form method="POST" action="transactions/import" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <input type="file" name="import" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-header">
+                        <h6 class="font-weight-bold">Sync Tranaction</h6>
+                    </div>
+                    <div>
+                        <a href="transactions/sync" class="btn btn-primary">Syn Transactions</a>
+                    </div>
                 </div>
             </div>
             <div class="card col-lg-5 col-md-12 m-2">
@@ -104,8 +124,8 @@
                             <i class="fas fa-download fa-sm text-white-50"></i> Download Records
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="export">CSV</a>
-                            <a class="dropdown-item" href="#">PDF</a>
+                            <a class="dropdown-item" href="export">CSV Report</a>
+                            <a class="dropdown-item" href="transactions/report">For Upload</a>
 
                         </div>
                     </div>
