@@ -158,7 +158,7 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     $(".transaction_form").trigger("reset");
-                    window.location.replace("https://mattel.com.ng/" + response.redirect)
+                    window.location.replace("http://mattel.net/" + response.redirect)
                     console.log(response);
                 },
                 complete: function () {
