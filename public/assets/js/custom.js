@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     // Transcation
     const prdouct_id = document.getElementById("product_id");
@@ -87,10 +88,9 @@ $(document).ready(function () {
     });
 });
 
+// ---- Search Functionality ---- //
 $(document).ready(function () {
-    // Search Functionality
     $(".navbar-search").on("submit", function (e) {
-        // alert('heere')
         e.preventDefault();
         let query = $(".search_query").val();
         if (!query) {
@@ -132,46 +132,46 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
+// ---- Transaction Confirmation ---- //
+// $(document).ready(function () {
     
-    $(".transaction_form").on("submit", function (e) {
-        e.preventDefault();
+//     $(".transaction_form").on("submit", function (e) {
+//         e.preventDefault();
 
-        $(":input").each(function () {
-            if ($(this).val() === "") {
-                $("#error_ms").text("Empty Fields");
-            }
-        })    
-        confirm(
-            "Please Check Details again and be sure before confirming transaction."
-        );
-            $.ajax({
-                type: "POST",
-                url: "/transactions/store",
-                data: new FormData(this),
-                dataType: "JSON",
-                contentType: false,
-                cache: false,
-                processData: false,
-                beforeSend: function () {
-                  $(".submit_transaction").text('Loading...');  
-                },
-                success: function (response) {
-                    $(".transaction_form").trigger("reset");
-                    window.location.replace("https://mattel.com.ng/" + response.redirect)
-                    console.log(response);
-                },
-                complete: function () {
-                    $(".submit_transaction").text("Done");
-                }
-            });
-    });
-});
+//         $(":input").each(function () {
+//             if ($(this).val() === "") {
+//                 $("#error_ms").text("Empty Fields");
+//             }
+//         })
+//         confirm(
+//             "Please Check Details again and be sure before confirming transaction."
+//         );
+//             $.ajax({
+//                 type: "POST",
+//                 url: "/transactions/store",
+//                 data: new FormData(this),
+//                 dataType: "JSON",
+//                 contentType: false,
+//                 cache: false,
+//                 processData: false,
+//                 beforeSend: function () {
+//                   $(".submit_transaction").text('Loading...');
+//                 },
+//                 success: function (response) {
+//                     $(".transaction_form").trigger("reset");
+//                     window.location.replace("https://mattel.com.ng/" + response.redirect)
+//                     console.log(response);
+//                 },
+//                 complete: function () {
+//                     $(".submit_transaction").text("Done");
+//                 }
+//             });
+//     });
+// });
 
+
+// ---- Alert Pop Up ---- //
 $(document).ready(function () {
-    // $('.custom-alert').delay(4000).slideUp(500, function () {
-    //     $(".custom-alert").fadeTo(2000, 0)
-    // })
     $(".custom-alert").delay(4000).fadeTo(4000, 0);
 });
 
