@@ -102,14 +102,21 @@ class TransactionController extends Controller
         $product = Product::find('1');
         $users = User::all();
         $category = Category::where('price', $request->category)->first();
-        
+        $name = $request->name;
+        $phone = $request->phone;
 
-        if($product->quantity == 0){
+        if ($product->quantity == 0) {
             return back()->with('message', 'Restock, Product Quantity is low');
         }
+        if ($name == '') {
+            $name = 'User_' . rand(0, 1000) . time();
+        }
+        if ($phone == '') {
+            $phone = rand(0, 1000) . time();
+        }
         $client = Client::firstOrCreate([
-            'name' => $request->name,
-            'phone' => $request->phone,
+            'name' => $name,
+            'phone' => $phone,
             'email' => $request->email,
             'address' => $request->address,
             'dob' => $request->dob,

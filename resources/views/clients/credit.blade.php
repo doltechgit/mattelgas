@@ -1,25 +1,7 @@
 <x-layout>
-    @role('manager|admin')
-    <div class="card col-md-6 my-4">
-        <div class="card-header">
-            <h6 class="font-weight-bold">Import Clients</h6>
-        </div>
-        <div class="my-2">
-            <form method="POST" action="clients/import" enctype="multipart/form-data">
-                @csrf
-                <div class="form-group">
-                    <input type="file" name="import" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" />
-                </div>
-            </form>
-        </div>
-    </div>
-    @endrole
-    <div class="card  mb-4">
+    <div class="card border-0 mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold ">Clients</h6>
+            <h6 class="m-0 font-weight-bold ">Creditors</h6>
             <div>
                 <a href="/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "><i class="fas fa-plus fa-sm text-white-50"></i> Add New Client</a>
                 <div class="dropdown d-none d-sm-inline-block">
@@ -39,9 +21,9 @@
                 <table class="table " id="clientTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Phone</th>
+
+                            <th>Client</th>
+                            <th>Outstanding</th>
                             <th>Transactions</th>
                             <th></th>
                         </tr>
@@ -56,9 +38,14 @@
 
 
                         <tr>
-                            <td>{{$client->id}}</td>
-                            <td><a href="/clients/{{$client->id}}">{{$client->name}}</a></td>
-                            <td>{{$client->phone}}</td>
+
+                            <td>
+                                <a href="/clients/{{$client->id}}">
+                                    <h6>{{$client->name}}</h6>
+                                    <small>{{$client->category->name}}</small>
+                                </a>
+                            </td>
+                            <td>&#8358; {{number_format($client->transactions->sum('balance'))}}</td>
                             <td>{{count($client->transactions)}}</td>
                             <td>
                                 <x-table-list-menu show="clients" delete="clients/delete" :id='$client->id' />

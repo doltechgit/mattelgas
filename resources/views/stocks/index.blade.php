@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container-fluid">
+    @role('manager|admin')
     <div class="card col-md-6 my-4">
         <div class="card-header">
             <h6 class="font-weight-bold">Import Stocks</h6>
@@ -16,6 +16,7 @@
             </form>
         </div>
     </div>
+    @endrole
     <div class="card  mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold">All Stocks</h6>
@@ -67,5 +68,4 @@
             </div>
         </div>
     </div>
-</div>
 </x-layout>

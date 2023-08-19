@@ -34,23 +34,14 @@
               <i class="fas fa-fw fa-chart-area"></i>
               <span>Transactions</span></a>
       </li>
+      @role('cashier|manager')
       <li class="nav-item {{Request::path() == 'clients' ? 'active' : ''}}">
           <a class="nav-link" href="/clients">
               <i class="fas fa-fw fa-users"></i>
               <span>Clients</span></a>
       </li>
-      @role('manager')
-      <li class="nav-item {{Request::path() == 'stocks' ? 'active' : ''}}">
-          <a class="nav-link" href="stocks">
-              <i class="fas fa-fw fa-table"></i>
-              <span>Stocks Inventory</span></a>
-      </li>
-      <li class="nav-item {{Request::path() == 'products' ? 'active' : ''}}">
-          <a class="nav-link" href="/products/1">
-              <i class="fas fa-fw fa-gas-pump"></i>
-              <span>Gas Prices</span></a>
-      </li>
-      @elserole('admin')
+      @endrole
+      @role('manager|admin')
       <li class="nav-item {{Request::path() == 'stocks' ? 'active' : ''}}">
           <a class="nav-link" href="stocks">
               <i class="fas fa-fw fa-table"></i>
@@ -65,10 +56,24 @@
 
 
       <!-- Divider -->
-      <hr class="sidebar-divider">
+
 
       <!-- Nav Item - Utilities Collapse Menu -->
       @role('admin')
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#clientUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+              <i class="fas fa-fw fa-wrench"></i>
+              <span>Clients</span>
+          </a>
+          <div id="clientUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Clients Menu:</h6>
+                  <a class="collapse-item" href="/clients">Clients</a>
+                  <a class="collapse-item" href="/creditors">Creditors</a>
+              </div>
+          </div>
+      </li>
+      <hr class="sidebar-divider">
       <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
               <i class="fas fa-fw fa-wrench"></i>

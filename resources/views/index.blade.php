@@ -1,5 +1,4 @@
 <x-layout>
-    <div class="m-3">
         <div class="row mb-4">
             <div class=" col-lg-8 col-md-12 ">
                 <!-- Content Row -->
@@ -22,7 +21,7 @@
                                     <div class="row">
                                         <span class="col-lg-6 col-md-12 px-2">
                                             <div class="form-group">
-                                                <input class="form-control name" type="text" name="name" id="name" placeholder="Customer's Name" value="{{old('name')}}" required />
+                                                <input class="form-control name" type="text" name="name" id="name" placeholder="Customer's Name" value="{{old('name')}}"  />
                                                 @error('name')
                                                 <small class="text-danger">{{$message}}</small>
                                                 @enderror
@@ -30,7 +29,7 @@
                                         </span>
                                         <span class="col-lg-6 col-md-12 px-2">
                                             <div class="form-group">
-                                                <input class="form-control phone" type="text" name="phone" id="phone" placeholder="Customer's Phone" value="{{old('phone')}}" required />
+                                                <input class="form-control phone" type="text" name="phone" id="phone" placeholder="Customer's Phone" value="{{old('phone')}}"  />
                                                 @error('phone')
                                                 <small class="text-danger">{{$message}}</small>
                                                 @enderror
@@ -259,7 +258,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Client Transaction Modal-->
     @include('partials._client-transaction')

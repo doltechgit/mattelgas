@@ -20,7 +20,6 @@ class ClientController extends Controller
      */
     public function index()
     {
-        
         $clients = Client::all();
         $categories = Category::all();
         
@@ -30,15 +29,23 @@ class ClientController extends Controller
         ]);
     }
 
+    public function credit()
+    {
+        
+        $creditors = Transaction::where('balance', '>', 0)->pluck('client_id');
+        
+        $clients = Client::find($creditors);
+       
+        return view('clients.credit', [
+            'clients' => $clients,
+        ]);
+    }
+
     public function import(Request $request)
     {
         // dd($request->import);
         Excel::import(new ClientImport, $request->import);
-        
         return back()->with('message', 'Import Successful');
-        
-       
-        
     }
 
     /**

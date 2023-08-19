@@ -70,6 +70,9 @@ Route::group(['middleware' => ['role:admin']], function(){
     //Registration
     Route::get('/register', [UserController::class, 'create']);
     Route::post('/register', [UserController::class, 'store']);
+
+    //Clients
+    Route::get('/creditors', [ClientController::class, 'credit']);
     //Settings
     Route::get('/settings', [UserController::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
