@@ -9,7 +9,7 @@
                             <h4>New Transaction</h4>
                         </div>
                         <div class="card-body">
-                            <form class="transaction_form">
+                            <form class="transaction_form" method="POST" action="transactions/store" >
                                 @csrf
                                 <small id="error_ms"></small>
 
