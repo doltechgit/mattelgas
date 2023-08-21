@@ -55,7 +55,7 @@
                                         <span class="col-lg-6 col-md-12 px-2">
                                             <div class="form-group">
                                                 <select class="form-control method" id="method" name="method" value="{{old('method')}}" required>
-                                                    <option value="Select KG">--Payment Method--</option>
+                                                    <option value="">--Payment Method--</option>
                                                     <option value="Cash">Cash</option>
                                                     <option value="POS">POS</option>
                                                     <option value="Transfer">Transfer</option>
