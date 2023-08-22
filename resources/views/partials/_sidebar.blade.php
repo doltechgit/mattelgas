@@ -62,7 +62,7 @@
       @role('admin')
       <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#clientUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-              <i class="fas fa-fw fa-wrench"></i>
+              <i class="fas fa-fw fa-users"></i>
               <span>Clients</span>
           </a>
           <div id="clientUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">

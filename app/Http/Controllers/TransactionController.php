@@ -41,6 +41,7 @@ class TransactionController extends Controller
         $transfer_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
         ->where('pay_method', 'transfer')->sum('price');
         $transactions = Transaction::all();
+       
         return view('transactions.index', [
             'transactions' => $transactions,
             'cash' => $cash,
@@ -109,10 +110,10 @@ class TransactionController extends Controller
             return back()->with('message', 'Restock, Product Quantity is low');
         }
         if ($name == '') {
-            $name = 'User_' . rand(0, 1000) . time();
+            $name = 'User_' . rand(0, 1000).time();
         }
         if ($phone == '') {
-            $phone = rand(0, 1000) . time();
+            $phone = rand(0, 1000).time();
         }
         $client = Client::firstOrCreate([
             'name' => $name,

@@ -3,24 +3,30 @@
 namespace App\Imports;
 
 use App\Models\Client;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Validators\Failure as ValidatorsFailure;
 use Throwable;
 
-class ClientImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnError, SkipsOnFailure
+class ClientImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsOnFailure, WithBatchInserts, WithUpserts
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function collection(Collection $rows)
     {
-        return new Client([
+
+        foreach ($rows as $row) {
+          Client::create([
             'name' => $row['name'],
             'phone' => $row['phone'],
             'email' => $row['email'],
@@ -33,11 +39,17 @@ class ClientImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
 
         ]);
     }
+    }
 
-    public function rules(): array{
-        return [
-            '*.phone' => ['unique:clients']
-        ];
+    // public function rules(): array{
+    //     return [
+    //         '*.phone' => ['unique:clients']
+    //     ];
+    // }
+
+    public function uniqueBy()
+    {
+        return 'phone';
     }
 
     public function onError(Throwable $e)
@@ -47,5 +59,10 @@ class ClientImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnEr
     public function onFailure(ValidatorsFailure ...$failures)
     {
         
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
     }
 }

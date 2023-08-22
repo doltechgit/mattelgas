@@ -16,7 +16,9 @@ class Client extends Model
         'address',
         'category_id',
         'dob',
-        'trans'
+        'trans',
+        'created_at',
+        'updated_at'
 
     ];
 

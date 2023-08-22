@@ -16,7 +16,9 @@ class Stock extends Model
         'prev_quantity',
         'add_quantity',
         'new_quantity',
-        'user_id'
+        'user_id',
+        'created_at',
+        'updated_at'
         
     ];
 

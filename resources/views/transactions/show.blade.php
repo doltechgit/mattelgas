@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td>Discount: {{$transaction->discount}} %</td>
-                    <td>Transaction by: {{$transaction->user->name}}</td>
+                    <td>Transaction by: {{$transaction->user == null ? 'Staff' : $transaction->user->name}}</td>
                 </tr>
                 <tr>
                     <td>Paid: &#8358; {{number_format($transaction->paid)}}</td>
@@ -113,7 +113,7 @@
                 </tr>
                 <tr>
                     <td>Transaction by: </td>
-                    <td>{{$transaction->user->name}}</td>
+                    <td>{{$transaction->user == null ? 'Staff' : $transaction->user->name}}</td>
                 </tr>
                 <p></p>
 

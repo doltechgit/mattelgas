@@ -20,7 +20,9 @@ class Transaction extends Model
         'discount',
         'pay_method',
         'paid',
-        'balance'
+        'balance',
+        'created_at',
+        'updated_at'
     ];
 
     public function user(){

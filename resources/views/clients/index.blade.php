@@ -19,7 +19,7 @@
     @endrole
     <div class="card  mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold ">Clients</h6>
+            <h6 class="m-0 font-weight-bold ">Clients</h6> {{count($clients)}}
             <div>
                 <a href="/" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm "><i class="fas fa-plus fa-sm text-white-50"></i> Add New Client</a>
                 <div class="dropdown d-none d-sm-inline-block">

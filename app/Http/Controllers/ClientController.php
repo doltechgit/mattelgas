@@ -22,6 +22,7 @@ class ClientController extends Controller
     {
         $clients = Client::all();
         $categories = Category::all();
+        // dd($clients);
         
         return view('clients.index', [
             'clients' => $clients,
@@ -44,7 +45,10 @@ class ClientController extends Controller
     public function import(Request $request)
     {
         // dd($request->import);
-        Excel::import(new ClientImport, $request->import);
+        
+       Excel::import(new ClientImport, $request->import);
+        
+        // ini_set('max_exection_time', 300);
         return back()->with('message', 'Import Successful');
     }
 
