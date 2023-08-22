@@ -173,10 +173,10 @@
                                 <small>Payment Methode: {{$transaction->pay_method}}</small>
                             </td>
                             <td>
-                                <a href="clients/{{$transaction->client->id}}">
-                                    <h6>{{$transaction->client->name}}</h6>
+                                <a href="clients/{{$transaction->client == null ? '' : $transaction->client->id}}">
+                                    <h6>{{$transaction->client == null ? '' : $transaction->client->name}}</h6>
                                 </a>
-                                <small>Contact: {{$transaction->client->phone}}</small>
+                                <small>Contact: {{$transaction->client == null ? '' : $transaction->client->phone}}</small>
                             <td>
                                 <x-table-list-menu show="transactions" delete="transactions/delete" :id='$transaction->id' />
                             </td>

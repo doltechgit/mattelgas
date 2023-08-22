@@ -21,6 +21,7 @@ class StockImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnError
     public function model(array $row)
     {
         return new Stock([
+            'id' => $row['id'],
             'stock_stamp' => $row['stock_stamp'],
             'product_id' => $row['product_id'],
             'prev_quantity' => $row['prev_quantity'],

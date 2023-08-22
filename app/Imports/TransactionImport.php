@@ -25,6 +25,7 @@ class TransactionImport implements ToCollection, WithHeadingRow, SkipsOnError, W
         foreach ($rows as $row) 
         {
             Transaction::firstOrCreate([
+            'id' => $row['id'],
             'transaction_id' => $row['transaction_id'],
             'product_id' => $row['product_id'],
             'store_id' => $row['store_id'],

@@ -39,8 +39,8 @@
                 <table class="table " id="clientTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
+
+                            <th>Client</th>
                             <th>Phone</th>
                             <th>Transactions</th>
                             <th></th>
@@ -56,8 +56,13 @@
 
 
                         <tr>
-                            <td>{{$client->id}}</td>
-                            <td><a href="/clients/{{$client->id}}">{{$client->name}}</a></td>
+
+                            <td>
+                                <a href="/clients/{{$client->id}}">
+                                    <h6>{{$client->name}}</h6>
+                                    <small>{{$client->category->name}}</small>
+                                </a>
+                            </td>
                             <td>{{$client->phone}}</td>
                             <td>{{count($client->transactions)}}</td>
                             <td>

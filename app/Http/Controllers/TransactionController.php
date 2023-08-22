@@ -67,7 +67,6 @@ class TransactionController extends Controller
     {
         // dd($request->import);
         Excel::import(new TransactionImport, $request->import);
-        
         return back()->with('message', 'Import Successful');
         
        

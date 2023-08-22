@@ -27,6 +27,7 @@ class ClientImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsO
 
         foreach ($rows as $row) {
           Client::create([
+            'id' => $row['id'],
             'name' => $row['name'],
             'phone' => $row['phone'],
             'email' => $row['email'],
