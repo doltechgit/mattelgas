@@ -26,19 +26,35 @@ class ClientImport implements ToCollection, WithHeadingRow, SkipsOnError, SkipsO
     {
 
         foreach ($rows as $row) {
-          Client::create([
-            'id' => $row['id'],
-            'name' => $row['name'],
-            'phone' => $row['phone'],
-            'email' => $row['email'],
-            'address' => $row['address'],
-            'dob' => $row['dob'],
-            'category_id' => $row['category_id'],
-            'trans_no' => $row['trans_no'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
+            $client = Client::find($row['id']);
+            if($client == null){
+                Client::firstOrCreate([
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'phone' => $row['phone'],
+                    'email' => $row['email'],
+                    'address' => $row['address'],
+                    'dob' => $row['dob'],
+                    'category_id' => $row['category_id'],
+                    'trans_no' => $row['trans_no'],
+                    'created_at' => $row['created_at'],
+                    'updated_at' => $row['updated_at'],
 
-        ]);
+                ]);
+            }else {
+                $client->id = $row['id'];
+                $client->name = $row['name'];
+                $client->phone = $row['phone'];
+                $client->email = $row['email'];
+                $client->address = $row['address'];
+                $client->dob = $row['dob'];
+                $client->category_id = $row['category_id'];
+                $client->trans_no = $row['trans_no'];
+                $client->created_at = $row['created_at'];
+                $client->updated_at = $row['updated_at'];
+                $client->save();
+            }
+          
     }
     }
 

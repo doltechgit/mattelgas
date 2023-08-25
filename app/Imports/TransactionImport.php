@@ -24,22 +24,40 @@ class TransactionImport implements ToCollection, WithHeadingRow, SkipsOnError, W
         
         foreach ($rows as $row) 
         {
-            Transaction::firstOrCreate([
-            'id' => $row['id'],
-            'transaction_id' => $row['transaction_id'],
-            'product_id' => $row['product_id'],
-            'store_id' => $row['store_id'],
-            'client_id' => $row['client_id'],
-            'user_id' => $row['user_id'],
-            'quantity' => $row['quantity'],
-            'price' => $row['price'],
-            'discount' => $row['discount'] == '' ? 0 : $row['discount'] ,
-            'paid' => $row['paid'] == '' ? 0 : $row['paid'],
-            'balance' => $row['balance'] == '' ? 0 : $row['balance'],
-            'pay_method' => $row['pay_method'],
-            'created_at' => $row['created_at'],
-            'updated_at' => $row['updated_at'],
-        ]);
+            $transaction = Transaction::find($row['id']);
+            if($transaction == null){
+                Transaction::firstOrCreate([
+                    'id' => $row['id'],
+                    'transaction_id' => $row['transaction_id'],
+                    'product_id' => $row['product_id'],
+                    'store_id' => $row['store_id'],
+                    'client_id' => $row['client_id'],
+                    'user_id' => $row['user_id'],
+                    'quantity' => $row['quantity'] == '' ? 0 : $row['quantity'],
+                    'price' => $row['price']  == '' ? 0 : $row['price'],
+                    'discount' => $row['discount'] == '' ? 0 : $row['discount'],
+                    'paid' => $row['paid'] == '' ? 0 : $row['paid'],
+                    'balance' => $row['balance'] == '' ? 0 : $row['balance'],
+                    'pay_method' => $row['pay_method'],
+                    'created_at' => $row['created_at'],
+                    'updated_at' => $row['updated_at'],
+                ]);
+            } else{
+                $transaction->id = $row['id'];
+                $transaction->product_id = $row['product_id'];
+                $transaction->store_id = $row['store_id'];
+                $transaction->client_id = $row['client_id'];
+                $transaction->user_id = $row['user_id'];
+                $transaction->quantity = $row['quantity'] == '' ? 0 : $row['quantity'];
+                $transaction->price = $row['price']  == '' ? 0 : $row['price'];
+                $transaction->discount = $row['discount'] == '' ? 0 : $row['discount'];
+                $transaction->paid = $row['paid'] == '' ? 0 : $row['paid'];
+                $transaction->balance = $row['balance'] == '' ? 0 : $row['balance'];
+                $transaction->pay_method = $row['pay_method'];
+                $transaction->created_at = $row['created_at'];
+                $transaction->updated_at = $row['updated_at'];
+            }
+            
     }
     
     }
