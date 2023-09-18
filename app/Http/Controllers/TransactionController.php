@@ -16,6 +16,7 @@ use App\Exports\MethodReport;
 use App\Imports\TransactionImport;
 use App\Models\Category;
 use App\Models\Coupon;
+use App\Models\Method;
 use App\Models\Stock;
 use App\Notifications\TransactionNotification;
 use Illuminate\Support\Facades\Notification;
@@ -31,25 +32,40 @@ class TransactionController extends Controller
     public function index()
     {
         $cash = Transaction::where('pay_method', 'cash')->sum('price');
+        $cash_method = Method::where('method', 'cash')->sum('amount');
+        $cash_total = $cash_method + $cash;
         $pos = Transaction::where('pay_method', 'pos')->sum('price');
+        $pos_method = Method::where('method', 'pos')->sum('amount');
+        $pos_total = $pos_method + $pos;
         $transfer = Transaction::where('pay_method', 'transfer')->sum('price');
+        $transfer_method = Method::where('method', 'transfer')->sum('amount');
+        $transfer_total = $transfer_method + $transfer;
         $today = date('Y-m-d', time());
         $pos_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
         ->where('pay_method', 'pos')->sum('price');
+        $pos_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('method', 'pos')->sum('amount');
+        $pos_total_today = $pos_today + $pos_method_today;
         $cash_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
         ->where('pay_method', 'cash')->sum('price');
+        $cash_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('method', 'cash')->sum('amount');
+        $cash_total_today = $cash_today + $cash_method_today;
         $transfer_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('pay_method', 'transfer')->sum('price');
+        ->where('pay_method', 'transfer')->sum('price'); 
+        $transfer_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
+        ->where('method', 'transfer')->sum('amount');
+        $transfer_total_today = $transfer_today + $transfer_method_today;
         $transactions = Transaction::all();
        
         return view('transactions.index', [
             'transactions' => $transactions,
-            'cash' => $cash,
-            'pos' => $pos,
-            'transfer' => $transfer,
-            'cash_today' => $cash_today,
-            'pos_today' => $pos_today,
-            'transfer_today' => $transfer_today
+            'cash' => $cash_total,
+            'pos' => $pos_total,
+            'transfer' => $transfer_total,
+            'cash_today' => $cash_total_today,
+            'pos_today' => $pos_total_today,
+            'transfer_today' => $transfer_total_today
         ]);
     }
 
@@ -99,6 +115,7 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         // dd($request->input());
+        $method_amount = $request->input('method_amount', []);
         $product = Product::find('1');
         $users = User::all();
         $category = Category::where('price', $request->category)->first();
@@ -132,12 +149,21 @@ class TransactionController extends Controller
             'client_id' => $client_id,
             'quantity' => $request->buy_quantity,
             'price' => $request->buy_price,
-            'pay_method' => $request->method,
+            'pay_method' => 'Paid',
             'discount' => $request->discount,
             'paid' => $request->paid,
             'balance' => $request->balance
 
         ]);
+
+        foreach ($request->input('method', []) as $index => $method) {
+
+            Method::create([
+                'transaction_id' => $transaction->id,
+                'method' => $method,
+                'amount' => $method_amount[$index]
+            ]);
+        }
 
         $updated_quantity = $product->quantity - $transaction->quantity;
         $product->quantity = $updated_quantity;
@@ -281,7 +307,8 @@ class TransactionController extends Controller
     public function generate_method(Request $request)
     {
 
-        return (new MethodReport($request->from, $request->to, $request->method))->download('mt-'. $request->method.'.csv');
+        $methods = Method::whereBetween('created_at', [$request->from . ' 00:00:00', $request->to . ' 23:59:59'])->where('method', $request->method)->get();
+        return (new MethodReport($methods))->download('mtg-' . $request->method . '.csv');
         // dd($transaction);
     }
 

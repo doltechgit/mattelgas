@@ -170,7 +170,15 @@
                             <td>
                                 <h6>&#8358; {{number_format($transaction->price)}} | {{$transaction->quantity}} KG</h6>
                                 <small>Discount: {{$transaction->discount}} %</small>
-                                <small>Payment Methode: {{$transaction->pay_method}}</small>
+                                <small>Payment Methods:
+                                    @if ($transaction->pay_method == 'Paid')
+                                    @foreach ($transaction->methods as $method)
+                                    {{$method->method}} - &#8358; {{$method->amount}},
+                                    @endforeach
+                                    @else
+                                    {{$transaction->pay_method}}
+                                    @endif
+                                </small>
                             </td>
                             <td>
                                 <a href="clients/{{$transaction->client == null ? '' : $transaction->client->id}}">

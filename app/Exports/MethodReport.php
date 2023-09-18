@@ -13,34 +13,24 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
 
 
-class MethodReport implements FromQuery, WithHeadings
+class MethodReport implements FromView
 {
     use Exportable;
 
-    public $from;
-    public $to;
-    public $method;
-    
+    public $methods;
+
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function __construct($from, $to, $method)
+    public function __construct($methods)
     {
-        $this->from = $from;
-        $this->to = $to;
-        $this->method = $method;
+        $this->methods = $methods;
     }
-    public function headings(): array{
-        return [
-            'ID',
-            'transaction ID',
-            'Product ID',
 
-        ];
-    }
-    public function query()
+    public function view(): View
     {
-        return Transaction::query()->whereBetween('created_at', [$this->from . ' 00:00:00', $this->to . ' 23:59:59'])->where('pay_method', $this->method);
+        return view('transactions.methods', [
+            'methods' => $this->methods
+        ]);
     }
-    
 }

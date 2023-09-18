@@ -34,7 +34,15 @@
                 </tr>
                 <tr class="col-md-6">
                     <td>Quantity: {{$transaction->quantity}} KG </td>
-                    <td>Payment Method: {{$transaction->pay_method}}</td>
+                    <td>Payment Method:
+                        @if ($transaction->pay_method == 'Paid')
+                        @foreach ($transaction->methods as $method)
+                        {{$method->method}} - &#8358; {{$method->amount}},
+                        @endforeach
+                        @else
+                        {{$transaction->pay_method}}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Discount: {{$transaction->discount}} %</td>
@@ -96,8 +104,16 @@
                     <td>{{$transaction->quantity}} KG </td>
                 </tr>
                 <tr>
-                    <td>Payment Method: {{$transaction->pay_method}}</td>
-                    <td>{{$transaction->pay_method}}</td>
+                    <td>Payment Method:</td>
+                    <td>
+                        @if ($transaction->pay_method == 'Paid')
+                        @foreach ($transaction->methods as $method)
+                        {{$method->method}} - &#8358; {{$method->amount}},
+                        @endforeach
+                        @else
+                        {{$transaction->pay_method}}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td>Paid: </td>
