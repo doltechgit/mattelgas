@@ -121,10 +121,10 @@
                     <h5 class="font-weight-bold">New Transaction</h5>
                 </div>
                 <div class="m-2">
-                    <form method="POST" action="/transactions/client/{{$client->id}}">
+                    <form method="POST" action="/transactions/store">
                         @csrf
                         <input type="hidden" name="transaction_id" value="TXN_{{rand(0, 1000).time()}}">
-                        <input type="hidden" class="client_id" name="client_id" id="client_id">
+                        <input type="hidden" class="client_id" name="client_id" id="client_id" value="{{$client->id}}">
                         <input type="hidden" class="unit_price" name="unit_price" id="unit_price">
                         <input type="hidden" class="disc_est" name="disc_est" id="disc_est">
 
@@ -206,7 +206,7 @@
                                     </td>
                                     <td class="">
 
-                                        <input class="form-control balance " type="number" step="any" name="balance" id="balance" placeholder="&#8358; 000.00" value="{{old('balance')}}" />
+                                        <input class="form-control balance " type="number"  name="balance" id="balance" placeholder="&#8358; 000.00" value="{{old('balance')}}" />
                                         @error('balance')
                                         <small class="text-danger">{{$message}}</small>
                                         @enderror

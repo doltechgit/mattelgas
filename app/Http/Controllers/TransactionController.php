@@ -42,22 +42,22 @@ class TransactionController extends Controller
         $transfer_total = $transfer_method + $transfer;
         $today = date('Y-m-d', time());
         $pos_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('pay_method', 'pos')->sum('price');
+            ->where('pay_method', 'pos')->sum('price');
         $pos_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('method', 'pos')->sum('amount');
+            ->where('method', 'pos')->sum('amount');
         $pos_total_today = $pos_today + $pos_method_today;
         $cash_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('pay_method', 'cash')->sum('price');
+            ->where('pay_method', 'cash')->sum('price');
         $cash_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('method', 'cash')->sum('amount');
+            ->where('method', 'cash')->sum('amount');
         $cash_total_today = $cash_today + $cash_method_today;
         $transfer_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('pay_method', 'transfer')->sum('price'); 
+            ->where('pay_method', 'transfer')->sum('price');
         $transfer_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-        ->where('method', 'transfer')->sum('amount');
+            ->where('method', 'transfer')->sum('amount');
         $transfer_total_today = $transfer_today + $transfer_method_today;
         $transactions = Transaction::all();
-       
+
         return view('transactions.index', [
             'transactions' => $transactions,
             'cash' => $cash_total,
@@ -84,9 +84,6 @@ class TransactionController extends Controller
         // dd($request->import);
         Excel::import(new TransactionImport, $request->import);
         return back()->with('message', 'Import Successful');
-        
-       
-        
     }
 
     public function sync()
@@ -94,11 +91,11 @@ class TransactionController extends Controller
         // dd($request->import);
         $product = Product::find(1);
         $transction_sum = Transaction::all()->sum('quantity');
-        $stock = Stock::pluck('new_quantity')->first(); 
+        $stock = Stock::pluck('new_quantity')->first();
         $added = Stock::pluck('add_quantity')->skip(1)->sum();
 
 
-        
+
         $current = $stock - $transction_sum;
         $product->quantity = $current + $added;
         $product->save();
@@ -126,36 +123,111 @@ class TransactionController extends Controller
             return back()->with('message', 'Restock, Product Quantity is low');
         }
         if ($name == '') {
-            $name = 'User_' . rand(0, 1000).time();
+            $name = 'User_' . rand(0, 1000) . time();
         }
         if ($phone == '') {
-            $phone = rand(0, 1000).time();
+            $phone = rand(0, 1000) . time();
         }
-        $client = Client::firstOrCreate([
-            'name' => $name,
-            'phone' => $phone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'dob' => $request->dob,
-            'category_id' => $category->id
-        ]);
-        $client->save();
-        $client_id = $client->id;
-        
+        if ($request->exists('client_id') === false) {
+            $client = Client::firstOrCreate([
+                'name' => $name,
+                'phone' => $phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'dob' => $request->dob,
+                'category_id' => $category->id
+            ]);
+            $client->save();
+            $client_id = $client->id;
+
+            $transaction = Transaction::create([
+                'transaction_id' => $request->transaction_id,
+                'product_id' => $request->product_id,
+                'user_id' => auth()->user()->id,
+                'client_id' => $client_id,
+                'quantity' => $request->buy_quantity,
+                'price' => $request->buy_price,
+                'pay_method' => 'Paid',
+                'discount' => $request->discount,
+                'paid' => $request->paid,
+                'balance' => $request->balance
+
+            ]);
+
+            foreach ($request->input('method', []) as $index => $method) {
+
+                Method::create([
+                    'transaction_id' => $transaction->id,
+                    'method' => $method,
+                    'amount' => $method_amount[$index]
+                ]);
+            }
+        } else if ($request->exists('client_id') === true) {
+            $client = Client::find($request->client_id);
+            
+            $transaction = Transaction::create([
+                'transaction_id' => $request->transaction_id,
+                'product_id' => $request->product_id,
+                'user_id' => auth()->user()->id,
+                'client_id' => $client->id,
+                'quantity' => $request->buy_quantity,
+                'price' => $request->buy_price,
+                'pay_method' => 'Paid',
+                'discount' => $request->discount,
+                'paid' => $request->paid,
+                'balance' => $request->balance
+
+            ]);
+
+            foreach ($request->input('method', []) as $index => $method) {
+
+                Method::create([
+                    'transaction_id' => $transaction->id,
+                    'method' => $method,
+                    'amount' => $method_amount[$index]
+                ]);
+            }
+        }
+
+        $updated_quantity = $product->quantity - $transaction->quantity;
+        $product->quantity = $updated_quantity;
+        $product->save();
+        Notification::send($users, new TransactionNotification($transaction->transaction_id));
+        return redirect('transactions/' . $transaction->id)->with('message', 'Transaction Successful!');
+        // return response()->json([
+        //     'status' => 200,
+        //     'redirect' => 'transactions/'.$transaction->id,
+        // ]);
+    }
+
+    public function client_transaction(Request $request, $id)
+    {
+        // dd($request->paid);
+        $method_amount = $request->input('method_amount', []);
+        $product = Product::find(1);
+        $users = User::all();
+        $client = Client::find($id);
+
+
+        if ($product->quantity == 0) {
+            return back()->with('message', 'Restock, Product Quantity is low');
+        }
+
+
+
         $transaction = Transaction::create([
             'transaction_id' => $request->transaction_id,
-            'product_id' => $request->product_id,
+            'product_id' => $product->id,
             'user_id' => auth()->user()->id,
-            'client_id' => $client_id,
+            'client_id' => $client->id,
             'quantity' => $request->buy_quantity,
             'price' => $request->buy_price,
-            'pay_method' => 'Paid',
+            'pay_method' => $request->method,
             'discount' => $request->discount,
             'paid' => $request->paid,
-            'balance' => $request->balance
-
+            'balance' => 0
         ]);
-
+        $transaction->save();
         foreach ($request->input('method', []) as $index => $method) {
 
             Method::create([
@@ -168,47 +240,9 @@ class TransactionController extends Controller
         $updated_quantity = $product->quantity - $transaction->quantity;
         $product->quantity = $updated_quantity;
         $product->save();
-        Notification::send($users, new TransactionNotification($transaction->transaction_id));
-        return redirect('transactions/'.$transaction->id)->with('message', 'Transaction Successful!');
-        // return response()->json([
-        //     'status' => 200,
-        //     'redirect' => 'transactions/'.$transaction->id,
-        // ]);
-    }
-
-    public function client_transaction(Request $request, $id)
-    {
-        // dd($request->input());
-        $product = Product::find(1);
-        $users = User::all();
-        $client = Client::find($id);
-
-
-        if ($product->quantity == 0) {
-            return back()->with('message', 'Restock, Product Quantity is low');
-        }
-
-        
-        
-        $transaction = Transaction::create([
-            'transaction_id' => $request->transaction_id,
-            'product_id' => $product->id,
-            'user_id' => auth()->user()->id,
-            'client_id' => $client->id,
-            'quantity' => $request->buy_quantity,
-            'price' => $request->buy_price,
-            'pay_method' => $request->method,
-            'discount' => $request->discount,
-            'paid' => $request->paid,
-            'balance' => $request->balance
-        ]);
-
-        $updated_quantity = $product->quantity - $transaction->quantity;
-        $product->quantity = $updated_quantity;
-        $product->save();
 
         // Generate Coupon
-        if (count($client->transactions) == 4 && $client->category->slug == 'end_user'){
+        if (count($client->transactions) == 4 && $client->category->slug == 'end_user') {
             $code = uniqid('mtg_');
             $coupon = Coupon::create([
                 'client_id' => $client->id,
@@ -299,7 +333,7 @@ class TransactionController extends Controller
 
     public function generate(Request $request)
     {
-    
+
         return (new TransactionSortReport($request->from, $request->to))->download('mt-report.csv');
         // dd($transaction);
     }
@@ -330,6 +364,5 @@ class TransactionController extends Controller
         $transaction->delete();
 
         return back()->with('message', 'Transaction deleted');
-
     }
 }
