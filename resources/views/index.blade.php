@@ -91,7 +91,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="">
                                     <span class="col-lg-6 col-md-12 px-2">
                                         <div class="form-group">
@@ -209,6 +209,7 @@
             <div class="col-md-12  my-4">
                 <small>Yesterday's Total</small>
                 <hr>
+                @role('admin|manager')
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="h3  font-weight-bold">&#8358;
@@ -230,6 +231,7 @@
                         </h3>
                     </div>
                 </div>
+                @endrole
             </div>
 
 
