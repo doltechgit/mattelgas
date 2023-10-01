@@ -164,7 +164,7 @@ class TransactionController extends Controller
             }
         } else if ($request->exists('client_id') === true) {
             $client = Client::find($request->client_id);
-            
+
             $transaction = Transaction::create([
                 'transaction_id' => $request->transaction_id,
                 'product_id' => $request->product_id,
@@ -293,11 +293,20 @@ class TransactionController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->input());
+        $method_amount = $request->input('method_amount', []);
         $transaction = Transaction::find($id);
 
         $transaction->paid = $transaction->paid + $request->paid;
         $transaction->balance = $transaction->balance - $request->paid;
         $transaction->save();
+        foreach ($request->input('method', []) as $index => $method) {
+            
+            Method::create([
+                'transaction_id' => $transaction->id,
+                'method' => $method,
+                'amount' => $method_amount[$index]
+            ]);
+        }
 
         return back()->with('message', 'Transaction updated!');
     }

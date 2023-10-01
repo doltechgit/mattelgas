@@ -73,7 +73,7 @@ $(document).ready(function () {
         }
     };
     buy_quantity.change(quantityChange);
-    paid.change(function () {
+    paid.on('input', function () {
         balance.val(parseFloat(price.val()) - parseFloat(paid.val()));
     });
 

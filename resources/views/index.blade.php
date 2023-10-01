@@ -339,6 +339,18 @@
                 //     })
 
                 // })
+
+                $('.method_amount').on('input', function() {
+                    let total = 0
+                    $('.method_amount').each(function() {
+                        total += parseFloat($(this).val())
+                    })
+                    $('.paid').val(parseFloat(total))
+                    console.log(parseFloat(total))
+
+                    $('.balance').val(parseFloat($('.buy_price').val()) - parseFloat(total));
+
+                })
             })
             $(document).on('click', '.remove_method', function() {
                 console.log('remove')
@@ -347,6 +359,17 @@
             $(document).on('click', '.apply_discount', () => {
                 console.log('show')
                 $('.discount_area').show()
+            })
+
+            $('.method_amount').on('input', function() {
+                let total = 0
+                $('.method_amount').each(function() {
+                    total += parseFloat($(this).val())
+                })
+                $('.paid').val(parseFloat(total))
+                console.log(parseFloat(total))
+
+                $('.balance').val(parseFloat($('.buy_price').val()) - parseFloat(total));
             })
 
         })
