@@ -9,7 +9,7 @@
                         <h4>New Transaction</h4>
                     </div>
                     <div class="card-body">
-                        <form class="transaction_form" method="POST" action="transactions/store">
+                        <form class="" method="POST" action="transactions/store">
                             @csrf
                             <small id="error_ms"></small>
 
@@ -157,7 +157,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary submit_transaction">Save Transaction</button>
+                                <button type="submit" class="btn btn-primary ">Save Transaction</button>
                                 <button type="reset" class="btn btn-secondary"><i class="fa fa-redo"></i></button>
                             </div>
                         </form>
@@ -306,7 +306,7 @@
                     <div class="row added_method">
                         <span class="col-lg-6 col-md-12 px-2">
                             <div class="form-group">
-                                <select class="form-control method" id="method" name="method[]" value="{{old('method')}}">
+                                <select class="form-control method" id="method" name="method[]" value="{{old('method')}}" required>
                                     <option value="">Payment Method</option>
                                     <option value="Cash">Cash</option>
                                     <option value="POS">POS</option>
