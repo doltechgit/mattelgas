@@ -206,10 +206,10 @@
 
                 </div>
             </div>
+            @role('admin|manager')
             <div class="col-md-12  my-4">
                 <small>Yesterday's Total</small>
                 <hr>
-                @role('admin|manager')
                 <div class="row">
                     <div class="col-md-6">
                         <h3 class="h3  font-weight-bold">&#8358;
@@ -240,55 +240,7 @@
 
         </div>
     </div>
-    <div class="card  mb-4">
-        <div class="card-header py-3 d-flex align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold ">Clients</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table " id="homeTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Client Category</th>
-                            <th>Transaction Count</th>
-                            <th>Coupon</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (!$clients)
-                        <tr>
-                            <td>No Client yet..</td>
-                        </tr>
-                        @endif
-                        @foreach ($clients->keyBy('created_at') as $client)
-
-
-                        <tr>
-                            <td>{{$client->name}}</td>
-                            <td>{{$client->phone}}</td>
-                            <td>{{$client->category->name}}</td>
-                            <td>{{count($client->transactions)}}</td>
-                            <td>Nil</td>
-                            <!-- <td>
-                                <x-table-list-menu show="transactions" delete="transactions/delete" :id='$client->id' />
-                            </td> -->
-                            <td>
-                                <a href="/clients/{{$client->id}}">
-                                    <button type="button" class="btn btn-light">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+  
 
     <!-- Client Transaction Modal-->
     @include('partials._client-transaction')
