@@ -31,37 +31,50 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $cash = Transaction::where('pay_method', 'cash')->sum('price');
+        $today = date('Y-m-d', time());
+        $cash = Transaction::where('pay_method', 'cash')->sum('paid');
         $cash_method = Method::where('method', 'cash')->sum('amount');
         $cash_total = $cash_method + $cash;
-        $pos = Transaction::where('pay_method', 'pos')->sum('price');
+        $pos = Transaction::where('pay_method', 'pos')->sum('paid');
         $pos_method = Method::where('method', 'pos')->sum('amount');
         $pos_total = $pos_method + $pos;
-        $transfer = Transaction::where('pay_method', 'transfer')->sum('price');
+        $transfer = Transaction::where('pay_method', 'transfer')->sum('paid');
         $transfer_method = Method::where('method', 'transfer')->sum('amount');
         $transfer_total = $transfer_method + $transfer;
-        $today = date('Y-m-d', time());
+        $discount = Transaction::all()->sum('discount');
+        $discount_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])->sum('discount');
+        $balance =  Transaction::all()->sum('balance');
+        $balance_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])->sum('balance');
+        $paid = Transaction::all()->sum('paid');
+        $paid_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])->sum('paid');
+        $total = Transaction::all()->sum('price');
         $pos_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('pay_method', 'pos')->sum('price');
+        ->where('pay_method', 'pos')->sum('paid');
         $pos_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('method', 'pos')->sum('amount');
+        ->where('method', 'pos')->sum('amount');
         $pos_total_today = $pos_today + $pos_method_today;
         $cash_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('pay_method', 'cash')->sum('price');
+        ->where('pay_method', 'cash')->sum('paid');
         $cash_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('method', 'cash')->sum('amount');
+        ->where('method', 'cash')->sum('amount');
         $cash_total_today = $cash_today + $cash_method_today;
         $transfer_today = Transaction::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('pay_method', 'transfer')->sum('price');
+        ->where('pay_method', 'transfer')->sum('paid');
         $transfer_method_today = Method::whereBetween('created_at', [$today . ' 00:00:00', $today . ' 23:59:59'])
-            ->where('method', 'transfer')->sum('amount');
+        ->where('method', 'transfer')->sum('amount');
         $transfer_total_today = $transfer_today + $transfer_method_today;
         $transactions = Transaction::all();
-
         return view('transactions.index', [
             'transactions' => $transactions,
             'cash' => $cash_total,
             'pos' => $pos_total,
+            'discount' => $discount,
+            'discount_today' => $discount_today,
+            'paid' => $paid,
+            'paid_today' => $paid_today,
+            'balance' => $balance,
+            'balance_today' => $balance_today,
+            'total' => $total,
             'transfer' => $transfer_total,
             'cash_today' => $cash_total_today,
             'pos_today' => $pos_total_today,

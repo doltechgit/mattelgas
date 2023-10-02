@@ -1,48 +1,122 @@
 <x-layout>
     @role('admin|manager')
+    <div class=" my-4 d-flex flex-wrap ">
+        <div class="card col-lg-6 col-md-12">
+            <div class="card-header">
+                <h6 class="font-weight-bold">Transaction Summary</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning p-2 my-2">Total</div>
+                <div class="row">
+                    <div class="mx-3">
+                        <small>Discounts</small>
+                        <h5>&#8358;{{number_format($discount)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Paid</small>
+                        <h5>&#8358;{{number_format($paid)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Outstanding</small>
+                        <h5>&#8358;{{number_format($balance)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Amount</small>
+                        <h5>&#8358;{{number_format($total)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Expected</small>
+                        <h5>&#8358;{{number_format($total + $discount)}}</h5>
+                    </div>
+                </div>
+                <div class="alert alert-success p-2 my-2">Total Paid (Payment Method) </div>
+                <div class="row">
+                    <div class="mx-3">
+                        <small>Cash</small>
+                        <h5>&#8358;{{number_format($cash)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>POS</small>
+                        <h5>&#8358;{{number_format($pos)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Transfer</small>
+                        <h5>&#8358;{{number_format($transfer)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Amount</small>
+                        <h5>&#8358;{{number_format($cash + $pos + $transfer)}}</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card col-lg-6 col-md-12">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="font-weight-bold">Transaction Summary</h6>
+                <div class="dropdown  d-sm-inline-block">
+                    <select class=" btn btn-sm dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-download fa-sm text-white-50"></i> Today
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <option class="dropdown-item">Today</option>
+                            <option class="dropdown-item">This Week</option>
+                            <option class="dropdown-item">This Month</option>
+                        </div>
+                    </select>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger p-2 my-2">Today </div>
+                <div class="row">
+                    <div class="mx-3">
+                        <small>Discounts</small>
+                        <h5>&#8358;{{number_format($discount_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Paid</small>
+                        <h5>&#8358;{{number_format($paid_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Outstanding</small>
+                        <h5>&#8358;{{number_format($balance_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Amount</small>
+                        <h5>&#8358;{{number_format($paid_today + $balance_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Expected</small>
+                        <h5>&#8358;{{number_format($paid_today + $balance_today + $discount_today)}}</h5>
+                    </div>
+                </div>
+
+                <div class="alert alert-danger p-2 my-2">Today: Amount Paid (Payment Method) </div>
+                <div class="row">
+                    <div class="mx-3">
+                        <small>Cash Transactions</small>
+                        <h5>&#8358;{{number_format($cash_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>POS Transactions</small>
+                        <h5>&#8358;{{number_format($pos_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Transfer</small>
+                        <h5>&#8358;{{number_format($transfer_today)}}</h5>
+                    </div>
+                    <div class="mx-3">
+                        <small>Total Amount</small>
+                        <h5>&#8358;{{number_format($cash_today + $pos_today + $transfer_today)}}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="d-flex justify-content-even flex-wrap ">
         <div class="card border-0 col-lg-6 col-md-12">
             <div class="card-body">
-                @role('admin')
-                <div class="card-header">
-                    <h6 class="font-weight-bold">Transaction Summary</h6>
-                </div>
-                <div class="my-2">
-                    <p>Total: </p>
-                    <div class="row">
-                        <div class="mx-3">
-                            <small>Cash Transactions</small>
-                            <h5>&#8358;{{number_format($cash)}}</h5>
-                        </div>
-                        <div class="mx-3">
-                            <small>POS Transactions</small>
-                            <h5>&#8358;{{number_format($pos)}}</h5>
-                        </div>
-                        <div class="mx-3">
-                            <small>Transfer</small>
-                            <h5>&#8358;{{number_format($transfer)}}</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-2">
-                    <p>Today: </p>
-                    <div class="row">
-                        <div class="mx-3">
-                            <small>Cash Transactions</small>
-                            <h5>&#8358;{{number_format($cash_today)}}</h5>
-                        </div>
-                        <div class="mx-3">
-                            <small>POS Transactions</small>
-                            <h5>&#8358;{{number_format($pos_today)}}</h5>
-                        </div>
-                        <div class="mx-3">
-                            <small>Transfer</small>
-                            <h5>&#8358;{{number_format($transfer_today)}}</h5>
-                        </div>
-                    </div>
-                </div>
-                @endrole
-
                 <div class="card-header">
                     <h6 class="font-weight-bold">Import Transactions</h6>
                 </div>
